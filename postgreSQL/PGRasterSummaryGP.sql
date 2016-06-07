@@ -2,7 +2,7 @@ CREATE OR REPLACE FUNCTION dz.PGRasterSummaryGP(
     IN  pGeometry              geometry
    ,OUT pReturnCode            NUMERIC
    ,OUT pStatusMessage         VARCHAR
-   ,OUT pPopulation            INTEGER
+   ,OUT pOutput                VARCHAR
 )
 AS
 $BODY$ 
@@ -13,6 +13,7 @@ DECLARE
    rec_result     RECORD;
    rast_clip      raster;
    r              RECORD;
+   int_count      INTEGER;
    
 BEGIN
    
@@ -68,7 +69,7 @@ BEGIN
    -- Step 30
    -- Step through cursor
    --------------------------------------------------------------------------
-   pPopulation := 0;
+   int_count := 0;
    
    LOOP 
       FETCH curs_results INTO rec_result; 
@@ -76,7 +77,7 @@ BEGIN
 
       IF rec_result.boo_within
       THEN
-         pPopulation := pPopulation + rec_result.total_population;
+         int_count := int_count + rec_result.total_population;
 
       ELSE
          rast_clip := ST_Clip(
@@ -89,7 +90,7 @@ BEGIN
 
          IF r.sum IS NOT NULL AND r.sum > 0
          THEN
-            pPopulation := pPopulation + r.sum;
+            int_count := int_count + r.sum;
 
          END IF;
          
@@ -98,9 +99,15 @@ BEGIN
    END LOOP; 
    
    CLOSE curs_results;
-     
+   
    --------------------------------------------------------------------------
-   -- Step 70
+   -- Step 40
+   -- Format output
+   --------------------------------------------------------------------------
+   pOutput := int_count::varchar;
+   
+   --------------------------------------------------------------------------
+   -- Step 50
    -- Exit
    --------------------------------------------------------------------------
    RETURN;
