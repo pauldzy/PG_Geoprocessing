@@ -93,7 +93,7 @@ BEGIN
    
    pOutput := pOutput || '"vectorIntersection":' || str_vector;
    
-   pOutput := pOutput || '"rasterSummary":' || str_raster;
+   pOutput := pOutput || ',"rasterSummary":' || str_raster;
    
    pOutput := pOutput || '}';
    
