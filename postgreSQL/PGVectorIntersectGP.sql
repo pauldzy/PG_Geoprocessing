@@ -95,7 +95,7 @@ BEGIN
       IF str_name_0 IS NULL 
       OR str_name_0 != rec_result.name_0
       THEN
-         --raise notice '|%| |%| |%|',int_index_0,str_name_0,rec_result.name_0;
+         
          int_index_0 := int_index_0 + 1; 
          int_index_1 := 0;
          int_index_2 := 0;
@@ -173,8 +173,7 @@ BEGIN
 
    FOR i IN 1 .. array_length(ary_tree,1)
    LOOP
-      raise notice '%',ary_tree[i].country;
-
+      
       pOutput := pOutput || '{"country":"' || ary_tree[i].country || '"';
 
       IF array_length(ary_tree[i].states_provinces,1) > 0
@@ -185,8 +184,7 @@ BEGIN
       
       FOR j IN 1 .. array_length(ary_tree[i].states_provinces,1)
       LOOP
-         raise notice '   %',ary_tree[i].states_provinces[j].state_province;
-
+         
          pOutput := pOutput || '{"state_province":"' || ary_tree[i].states_provinces[j].state_province || '"';
          pOutput := pOutput || ',"type":"' || ary_tree[i].states_provinces[j].admin_type || '"';
 
@@ -198,8 +196,7 @@ BEGIN
 
          FOR k IN 1 .. array_length(ary_tree[i].states_provinces[j].counties_districts,1)
          LOOP
-            raise notice '      %',ary_tree[i].states_provinces[j].counties_districts[k].county_district;
-
+            
             pOutput := pOutput || '{"county_district":"' || ary_tree[i].states_provinces[j].counties_districts[k].county_district || '"';
             pOutput := pOutput || ',"type":"' || ary_tree[i].states_provinces[j].counties_districts[k].admin_type || '"}';
 
