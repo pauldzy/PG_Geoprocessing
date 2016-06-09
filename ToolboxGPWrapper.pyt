@@ -200,14 +200,14 @@ class ToolboxGPWrapper(object):
       if num_return_code == 0:
       
          final_results = """{
-             "num_return_code": """ + num_return_code + """ 
+             "num_return_code": """ + str(num_return_code) + """ 
             ,"status_message" : \"""" + str_status_message + """\"
             ,"results" :  """ + str_output + """
          }""";
       
       else:
          final_results = """{
-             "num_return_code" : """ + num_return_code + """
+             "num_return_code" : """ + str(num_return_code) + """
             ,"status_message" : \"""" + str_status_message + """\"
          }""";
          
