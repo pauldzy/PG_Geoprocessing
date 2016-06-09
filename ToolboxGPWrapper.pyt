@@ -1,6 +1,10 @@
 import arcpy
 import __builtin__
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 class Toolbox(object):
 
    def __init__(self):
@@ -169,7 +173,6 @@ class ToolboxGPWrapper(object):
          SELECT (dz.PGFunctionGP(
             ST_GeomFromText('""" + obj_geom.WKT + """',4326)
          )).*
-
       """;
       #arcpy.AddMessage(sql_statement);
       
@@ -197,19 +200,17 @@ class ToolboxGPWrapper(object):
       #-- Step 90
       #-- Combine all results
       #------------------------------------------------------------------------
+      if str_status_message is None:
+         str_status_message = "null";
+       
+      else:
+         str_status_message = "\"" + str_status_message + "\"";
+     
       if num_return_code == 0:
-      
-         final_results = """{
-             "num_return_code": """ + str(num_return_code) + """ 
-            ,"status_message" : \"""" + str_status_message + """\"
-            ,"results" :  """ + str_output + """
-         }""";
+         final_results = """{"num_return_code":""" + str(num_return_code) + ""","status_message":""" + str_status_message + ""","results":""" + str_output + """}""";
       
       else:
-         final_results = """{
-             "num_return_code" : """ + str(num_return_code) + """
-            ,"status_message" : \"""" + str_status_message + """\"
-         }""";
+         final_results = """{"num_return_code" : """ + str(num_return_code) + ""","status_message" : """ + str_status_message + """}""";
          
       #------------------------------------------------------------------------
       #-- Step 100
@@ -318,4 +319,3 @@ class ToolboxGPWrapper(object):
          
       return (num_return_code,str_status_message,geom,cs);
       
-   
