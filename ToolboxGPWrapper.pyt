@@ -210,7 +210,7 @@ class ToolboxGPWrapper(object):
          final_results = """{"num_return_code":""" + str(num_return_code) + ""","status_message":""" + str_status_message + ""","results":""" + str_output + """}""";
       
       else:
-         final_results = """{"num_return_code" : """ + str(num_return_code) + ""","status_message" : """ + str_status_message + """}""";
+         final_results = """{"num_return_code":""" + str(num_return_code) + ""","status_message":""" + str_status_message + """}""";
          
       #------------------------------------------------------------------------
       #-- Step 100
@@ -318,4 +318,3 @@ class ToolboxGPWrapper(object):
          cs = geom.spatialReference;
          
       return (num_return_code,str_status_message,geom,cs);
-      
